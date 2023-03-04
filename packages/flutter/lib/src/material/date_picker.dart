@@ -340,11 +340,9 @@ class DatePickerDialog extends StatefulWidget {
   /// string. For example, 'Month, Day, Year' for en_US.
   final String? fieldLabelText;
 
-  /// {@template flutter.material.DatePickerDialog.keyboardType}
   /// The keyboard type of the [TextField].
   ///
   /// If this is null, it will default to [TextInputType.datetime]
-  /// {@endtemplate}
   final TextInputType? keyboardType;
 
   /// Restoration ID to save and restore the state of the [DatePickerDialog].
@@ -1236,9 +1234,11 @@ class DateRangePickerDialog extends StatefulWidget {
   /// is used.
   final String? fieldEndLabelText;
 
+  /// {@template flutter.material.DateRangePickerDialog.keyboardType}
   /// The keyboard type of the start date and end date input text fields.
   ///
   /// If this is null, it will default to [TextInputType.datetime]
+  /// {@endtemplate}
   final TextInputType? keyboardType;
 
   /// Restoration ID to save and restore the state of the [DateRangePickerDialog].
@@ -2844,7 +2844,7 @@ class _InputDateRangePicker extends StatefulWidget {
   /// [_InputDateRangePickerState.validate] to validate.
   final bool autovalidate;
 
-  /// {@macro flutter.material.DatePickerDialog.keyboardType}
+  /// {@macro flutter.material.DateRangePickerDialog.keyboardType}
   final TextInputType? keyboardType;
 
   @override
