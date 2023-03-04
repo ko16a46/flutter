@@ -28,6 +28,7 @@ void main() {
   String? fieldEndLabelText;
   String? helpText;
   String? saveText;
+  TextInputType? keyboardType;
 
   setUp(() {
     firstDate = DateTime(2015);
@@ -50,6 +51,7 @@ void main() {
     fieldEndLabelText = null;
     helpText = null;
     saveText = null;
+    keyboardType = null;
   });
 
   Future<void> preparePicker(
@@ -96,6 +98,7 @@ void main() {
       fieldEndLabelText: fieldEndLabelText,
       helpText: helpText,
       saveText: saveText,
+      keyboardType: keyboardType,
       builder: (BuildContext context, Widget? child) {
         return Directionality(
           textDirection: textDirection,
@@ -661,6 +664,17 @@ void main() {
         expect(find.text(fieldStartLabelText!), findsOneWidget);
         expect(find.text(fieldEndLabelText!), findsOneWidget);
         expect(find.text(helpText!), findsOneWidget);
+      });
+    });
+
+    testWidgets('KeyboardType is used', (WidgetTester tester) async {
+      keyboardType = TextInputType.text;
+      await preparePicker(tester, (Future<DateTimeRange?> range) async {
+        final TextField startField = tester.widget<TextField>(find.byType(TextField).at(0));
+        final TextField endField = tester.widget<TextField>(find.byType(TextField).at(1));
+
+        expect(startField.keyboardType, TextInputType.text);
+        expect(endField.keyboardType, TextInputType.text);
       });
     });
 

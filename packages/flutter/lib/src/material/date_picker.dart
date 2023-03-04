@@ -990,6 +990,7 @@ Future<DateTimeRange?> showDateRangePicker({
   RouteSettings? routeSettings,
   TextDirection? textDirection,
   TransitionBuilder? builder,
+  TextInputType? keyboardType,
   Offset? anchorPoint,
 }) async {
   assert(
@@ -1039,6 +1040,7 @@ Future<DateTimeRange?> showDateRangePicker({
     fieldEndHintText: fieldEndHintText,
     fieldStartLabelText: fieldStartLabelText,
     fieldEndLabelText: fieldEndLabelText,
+    keyboardType: keyboardType,
   );
 
   if (textDirection != null) {
@@ -1125,6 +1127,7 @@ class DateRangePickerDialog extends StatefulWidget {
     this.fieldEndHintText,
     this.fieldStartLabelText,
     this.fieldEndLabelText,
+    this.keyboardType,
     this.restorationId,
   });
 
@@ -1230,6 +1233,11 @@ class DateRangePickerDialog extends StatefulWidget {
   /// If null, the localized value of [MaterialLocalizations.dateRangeEndLabel]
   /// is used.
   final String? fieldEndLabelText;
+
+  /// The keyboard type of the start date and end date input text fields.
+  ///
+  /// If this is null, it will default to [TextInputType.datetime]
+  final TextInputType? keyboardType;
 
   /// Restoration ID to save and restore the state of the [DateRangePickerDialog].
   ///
@@ -1427,6 +1435,7 @@ class _DateRangePickerDialogState extends State<DateRangePickerDialog> with Rest
                   fieldEndHintText: widget.fieldEndHintText,
                   fieldStartLabelText: widget.fieldStartLabelText,
                   fieldEndLabelText: widget.fieldEndLabelText,
+                  keyboardType: widget.keyboardType,
                 ),
                 const Spacer(),
               ],
@@ -2773,6 +2782,7 @@ class _InputDateRangePicker extends StatefulWidget {
     this.fieldEndLabelText,
     this.autofocus = false,
     this.autovalidate = false,
+    this.keyboardType,
   }) : initialStartDate = initialStartDate == null ? null : DateUtils.dateOnly(initialStartDate),
        initialEndDate = initialEndDate == null ? null : DateUtils.dateOnly(initialEndDate),
        firstDate = DateUtils.dateOnly(firstDate),
@@ -2831,6 +2841,11 @@ class _InputDateRangePicker extends StatefulWidget {
   /// immediately after every change. Otherwise, you must call
   /// [_InputDateRangePickerState.validate] to validate.
   final bool autovalidate;
+
+  /// The keyboard type of the start date and end date input text fields.
+  ///
+  /// If this is null, it will default to [TextInputType.datetime]
+  final TextInputType? keyboardType;
 
   @override
   _InputDateRangePickerState createState() => _InputDateRangePickerState();
@@ -2972,7 +2987,7 @@ class _InputDateRangePickerState extends State<_InputDateRangePicker> {
               labelText: widget.fieldStartLabelText ?? localizations.dateRangeStartLabel,
               errorText: _startErrorText,
             ),
-            keyboardType: TextInputType.datetime,
+            keyboardType: widget.keyboardType ?? TextInputType.datetime,
             onChanged: _handleStartChanged,
             autofocus: widget.autofocus,
           ),
@@ -2988,7 +3003,7 @@ class _InputDateRangePickerState extends State<_InputDateRangePicker> {
               labelText: widget.fieldEndLabelText ?? localizations.dateRangeEndLabel,
               errorText: _endErrorText,
             ),
-            keyboardType: TextInputType.datetime,
+            keyboardType: widget.keyboardType ?? TextInputType.datetime,
             onChanged: _handleEndChanged,
           ),
         ),
